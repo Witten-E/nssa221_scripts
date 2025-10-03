@@ -44,7 +44,7 @@ def main():
         log_and_print(f"System Report for {hostname}")
         log_and_print(f"Date: {datetime.now()}")
         log_and_print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        log_and_print(f"Hostname: {run_command(["hostname"])}")
+        log_and_print(f"Hostname: {run_command(['hostname'])}")
         log_and_print(f"Domain suffix: {run_command(["hostname", "-d"])}")
         log_and_print(f"IPv4 address: {run_command(["hostname", "-I"])}")
         log_and_print(f"Default gateway: {run_command(["ip", "route", "show", "default"])}")
