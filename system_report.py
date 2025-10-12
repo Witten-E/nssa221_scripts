@@ -47,16 +47,15 @@ def main():
         log_and_print(f"Hostname: {run_command('hostname')}")
         log_and_print(f"Domain suffix: {run_command('hostname -d')}")
         log_and_print(f"IPv4 address: {run_command('hostname -I')}")
-        log_and_print(f'Default gateway: {run_command("ip route show default | awk '{print $3}\'")}')
-        log_and_print(f'Network mask: {run_command("ip -o -f inet addr show | awk '{print $4}\' | head -n 1")}')
+        log_and_print("Default gateway: " + run_command("ip route show default | awk '{print $3}'"))
+        log_and_print("Network mask: " + run_command("ip -o -f inet addr show | awk '{print $4}' | head -n 1"))
         log_and_print(f"DNS servers: {dns()}")
         log_and_print(f"OS: {platform.system()}")
         log_and_print(f"Kernel: {platform.release()}")
         log_and_print(f"Disk space: {run_command('df -h --output=size,avail / | tail -n 1')}")
         log_and_print(f"CPU model: {cpu_model()}")
         log_and_print(f"CPU count: {cpu_count()}")
-        log_and_print(f'RAM: {run_command("free -h --si | awk \'/^Mem:/ {print $2, $7}\'")}')
-
+        log_and_print("RAM: " + run_command("free -h --si | awk '/^Mem:/ {print $2, $7}'"))
 
 
 
