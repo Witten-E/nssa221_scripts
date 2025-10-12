@@ -8,7 +8,7 @@ import subprocess
 from datetime import datetime
 
 def run_command(cmd):
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(['bash', '-c', cmd], capture_output=True, text=True)
     return result.stdout.strip()
 
 def dns():
@@ -41,20 +41,23 @@ def main():
         def log_and_print(line):
             print(line)
             f.write(line + "\n")
+
         log_and_print(f"System Report for {hostname}")
-        log_and_print(f"Date: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}")
-        log_and_print(f"Hostname: {run_command(['hostname'])}")
-        log_and_print(f"Domain suffix: {run_command(['hostname', '-d'])}")
-        log_and_print(f"IPv4 address: {run_command(['hostname', '-I'])}")
-        log_and_print(f"Default gateway: {run_command(['ip', 'route', 'show', 'default', '|', 'cut', '-d\' \'', '-f3'])}")
-        log_and_print(f"Network mask: {run_command(['ip', '-o', '-f', 'inet', 'addr', 'show', '|', 'awk', '\'{print $4}\'', '|', 'head', '-n', '1'])}")
+        log_and_print(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        log_and_print(f"Hostname: {run_command('hostname')}")
+        log_and_print(f"Domain suffix: {run_command('hostname -d')}")
+        log_and_print(f"IPv4 address: {run_command('hostname -I')}")
+        log_and_print(f'Default gateway: {run_command("ip route show default | awk \'{print $3}\'")}')
+        log_and_print(f'Network mask: {run_command("ip -o -f inet addr show | awk \'{print $4}\' | head -n 1")}')
         log_and_print(f"DNS servers: {dns()}")
-        log_and_print(f"OS: {'platform.system()'}")
+        log_and_print(f"OS: {platform.system()}")
         log_and_print(f"Kernel: {platform.release()}")
-        log_and_print(f"Disk space: {run_command(['df', '-h', '/'])}")
+        log_and_print(f"Disk space: {run_command('df -h --output=size,avail / | tail -n 1')}")
         log_and_print(f"CPU model: {cpu_model()}")
         log_and_print(f"CPU count: {cpu_count()}")
-        log_and_print(f"RAM: {run_command(['free', '-h'])}")
+        log_and_print(f'RAM: {run_command("free -h --si | awk \'/^Mem:/ {print $2, $7}\'")}')
+
+
 
 
 if __name__ == "__main__":
