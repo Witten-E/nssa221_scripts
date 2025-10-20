@@ -39,7 +39,7 @@ def main():
     while quit == False:
         print_options()
         choice = input('Enter number of choice: ')
-        os.system('clear')
+        # os.system('clear')
         if choice == '1':
             print(create_symlink())
         elif choice == '2':
