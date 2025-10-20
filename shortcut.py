@@ -29,9 +29,9 @@ def delete_symlink():
 
 def generate_symlink_report():
     # Lists all symbolic links in the student home directory, including target paths.
-    print(run_command('find "$HOME" -type l -exec ls -l {} \;'))
+    print(run_command('find "$HOME/Desktop/" -type l -exec ls -l {} \;'))
     # Provides a total count of symbolic links in the user’s home directory.
-    print(run_command('echo "Total symbolic links: $(find "$HOME" -type l | wc -l)"'))
+    print(run_command('echo "Total symbolic links: $(find "$HOME/Desktop/" -type l | wc -l)"'))
 
 
 def main():
