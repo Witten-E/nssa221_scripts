@@ -50,7 +50,7 @@ def create_symlink():
 
 def delete_symlink():
     choice = input("Enter the name of the file you want to delete a symbolic link for:").strip()
-    symlinks = run_command(f'ls $HOME/Desktop/ | grep "{choice}"')
+    symlinks = run_command(f'ls $HOME/Desktop/ | grep "{choice}"').split("\n")
     
     if len(symlinks) == 0:
         return "no symlink found"
