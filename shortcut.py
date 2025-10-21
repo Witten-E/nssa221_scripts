@@ -19,12 +19,21 @@ def print_options():
     4. Exit/quit the script''')
 
 def create_symlink():
-    choice = input("Enter the name of the file you want to create a symbolic link for:")
-    print(run_command('ln -s "choice" "$HOME/Desktop/choice"'))
-
+    choice = input("Enter the name of the file you want to create a symbolic link for:").strip()
+    if not choice:
+        return "Error: no filename entered"
+    options = run_command(f'ls | grep {choice}').split('\n')
+    if len(options) == 0:
+        return "no file found"
+    elif len(options) == 1:
+        print(run_command(f'ln -s "{options[0]}" "$HOME/Desktop/choice"'))
+    elif len(options) > 1:
+        pass
+    else:
+        print("what the fuck did you do bro, how'd you get " + str(len(options)) + " options")
 
 def delete_symlink():
-    choice = input("Enter the name of the file you want to delete a symbolic link for:")
+    choice = input("Enter the name of the file you want to delete a symbolic link for:").strip()
     print(run_command('unlink "$HOME/Desktop/choice"'))
 
 def generate_symlink_report():
