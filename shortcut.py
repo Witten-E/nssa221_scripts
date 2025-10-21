@@ -25,7 +25,7 @@ def create_symlink():
     options = run_command(f'grep -r {choice} $HOME').split('\n')
     bad_options = list()
     for i in range(len(options)):
-        print(options[i], choice)
+        print(f"'{options[i]}'", choice)
         if options[i].split('/')[-1] != choice:
             bad_options.append(i)
     for i in bad_options:
