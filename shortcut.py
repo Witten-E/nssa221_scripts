@@ -26,15 +26,31 @@ def create_symlink():
     if len(options) == 0:
         return "no file found"
     elif len(options) == 1:
-        print(run_command(f'ln -s "{options[0]}" "$HOME/Desktop/choice"'))
+        return(run_command(f'ln -s "{options[0]}" "$HOME/Desktop/choice"'))
     elif len(options) > 1:
-        pass
+        inc = 1
+        for option in options:
+            print(str(inc) + ". " + option)
+        choice = input("Pick a file to symlink: ")
+        choice = options[int(choice)-1]
+        return(run_command(f'ln -s "{choice}" "$HOME/Desktop/choice"'))
     else:
-        print("what the fuck did you do bro, how'd you get " + str(len(options)) + " options")
+        return("what the fuck did you do bro, how'd you get " + str(len(options)) + " options")
 
 def delete_symlink():
     choice = input("Enter the name of the file you want to delete a symbolic link for:").strip()
-    print(run_command('unlink "$HOME/Desktop/choice"'))
+    symlinks = run_command(f'ls $HOME/Desktop/choice | grep "{choice}"')
+    if len(symlinks) == 0:
+        return "no symlink found"
+    elif len(symlinks) == 1:
+        return (run_command(f'unlink "$HOME/Desktop/{symlinks[0]}"'))
+    else:
+        inc = 1
+        for option in symlinks:
+            print(str(inc) + ". " + option)
+        choice = input("Pick a symlink to delete: ")
+        choice = symlinks[int(choice)-1]
+        return(run_command(f'unlink "$HOME/Desktop/{choice}"'))
 
 def generate_symlink_report():
     # Lists all symbolic links in the student home directory, including target paths.
