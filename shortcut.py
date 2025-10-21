@@ -50,7 +50,8 @@ def create_symlink():
 
 def delete_symlink():
     choice = input("Enter the name of the file you want to delete a symbolic link for:").strip()
-    symlinks = run_command(f'ls $HOME/Desktop/choice | grep "{choice}"')
+    symlinks = run_command(f'ls $HOME/Desktop/ | grep "{choice}"')
+    
     if len(symlinks) == 0:
         return "no symlink found"
     elif len(symlinks) == 1:
@@ -65,9 +66,10 @@ def delete_symlink():
 
 def generate_symlink_report():
     # Lists all symbolic links in the student home directory, including target paths.
-    print(run_command('find "$HOME/Desktop/" -type l -exec ls -l {} \;'))
+    cmd1 = (run_command('find "$HOME/Desktop/" -type l -exec ls -l {} \;'))
     # Provides a total count of symbolic links in the user’s home directory.
-    print(run_command('echo "Total symbolic links: $(find "$HOME/Desktop/" -type l | wc -l)"'))
+    cmd2 = (run_command('echo "Total symbolic links: $(find "$HOME/Desktop/" -type l | wc -l)"'))
+    return cmd1 +"\n"+ cmd2
 
 
 def main():
