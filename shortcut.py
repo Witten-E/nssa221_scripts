@@ -22,20 +22,22 @@ def create_symlink():
     choice = input("Enter the name of the file you want to create a symbolic link for:").strip()
     if not choice:
         return "Error: no filename entered"
-    options = run_command(f'grep -r {choice} $HOME')
+    options = run_command(f'grep -r {choice}$ $HOME')
     print(options)
-    options = options.split('\n')
-    bad_options = list()
+    options = options.split('grep: ')
     for i in range(len(options)):
-        print(f"'{options[i]}'", choice)
-        if options[i].split('/')[-1] != choice:
-            bad_options.append(i)
-    for i in bad_options:
-        options.pop(i)
+        options[i] = options[i].strip(": binary file matches\n")
+    # bad_options = list()
+    # for i in range(len(options)):
+    #     print(f"'{options[i]}'", choice)
+    #     if options[i].split('/')[-1] != choice:
+    #         bad_options.append(i)
+    # for i in bad_options:
+    #     options.pop(i)
     if len(options) == 0:
         return "no file found"
     elif len(options) == 1:
-        return(run_command(f'ln -s "{options[0]}" "$HOME/Desktop/choice"'))
+        return(run_command(f'ln -s "{options[0]}/{choice}" "$HOME/Desktop/choice"'))
     elif len(options) > 1:
         inc = 1
         for option in options:
