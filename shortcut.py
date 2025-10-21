@@ -37,14 +37,14 @@ def create_symlink():
     if len(options) == 0:
         return "no file found"
     elif len(options) == 1:
-        return(run_command(f'ln -s "{options[0]}/{choice}" "$HOME/Desktop/choice"'))
+        return(run_command(f'ln -s "{options[0]}/{choice}" "$HOME/Desktop/{choice}"'))
     elif len(options) > 1:
         inc = 1
         for option in options:
             print(str(inc) + ". " + option)
         choice = input("Pick a file to symlink: ")
         choice = options[int(choice)-1]
-        return(run_command(f'ln -s "{choice}" "$HOME/Desktop/choice"'))
+        return(run_command(f'ln -s "{choice}" "$HOME/Desktop/{choice}"'))
     else:
         return("what the fuck did you do bro, how'd you get " + str(len(options)) + " options")
 
