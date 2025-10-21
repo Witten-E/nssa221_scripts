@@ -22,7 +22,11 @@ def create_symlink():
     choice = input("Enter the name of the file you want to create a symbolic link for:").strip()
     if not choice:
         return "Error: no filename entered"
-    options = run_command(f'ls | grep {choice}').split('\n')
+    options = run_command(f'grep -r {choice} /').split('\n')
+    for i in len(options):
+        print(options[i], choice)
+        if options[i].split('/')[-1] != choice:
+            options.pop(i)
     if len(options) == 0:
         return "no file found"
     elif len(options) == 1:
