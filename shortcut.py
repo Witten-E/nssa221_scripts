@@ -23,10 +23,13 @@ def create_symlink():
     if not choice:
         return "Error: no filename entered"
     options = run_command(f'grep -r {choice} $HOME').split('\n')
-    for i in len(options):
+    bad_options = list()
+    for i in range(len(options)):
         print(options[i], choice)
         if options[i].split('/')[-1] != choice:
-            options.pop(i)
+            bad_options.append(i)
+    for i in bad_options:
+        options.pop(i)
     if len(options) == 0:
         return "no file found"
     elif len(options) == 1:
