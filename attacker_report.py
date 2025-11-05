@@ -40,7 +40,7 @@ def main():
     counts = find_tens(ips)
     counts = sorted(counts.items(), key=lambda item: item[1])
     for ip in counts:
-        print(f"{ip[1]:<8}{ip[0]:<20}null")
+        print(f"{ip[1]:<8}{ip[0]:<20}{gl.lookup(ip[0])}")
 
 
 
